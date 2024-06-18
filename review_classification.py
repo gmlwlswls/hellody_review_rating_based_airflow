@@ -81,7 +81,7 @@ df.drop(index= drop_train, axis= 0, inplace= True)
 # print(df) #
 
 # 토크나이저 불러오기
-with open('tokenizer.pickle', 'rb') as handle:
+with open('/home/ubuntu/review_rating_s3/tokenizer.pickle', 'rb') as handle:
     tokenizer = pickle.load(handle)
 
 # 테스트 데이터 전처리 및 토크나이저 적용
@@ -93,7 +93,7 @@ vocab_size = len(tokenizer.word_index) + 1
 X = pad_sequences(X, maxlen= 43)
 
 # 저장된 모델 로드
-loaded_model = load_model('best_model_LSTM_30.keras')
+loaded_model = load_model('/home/ubuntu/review_rating_s3/best_model_LSTM_30.keras')
 
 # 로드한 모델로 예측 수행
 predictions = loaded_model.predict(X)
@@ -125,4 +125,4 @@ negative_ratings = df[df['rating_label'] == 0]
 df_correspond = df[(df['model_label'] == df['rating_label'])]
 # print(df_correspond)
 df_correspond = df[['user_id', 'vod_id', 'rating']]
-df_correspond.to_csv('./df_correspond.csv', index = False)
+df_correspond.to_csv('/home/ubuntu/review_rating_s3/df_correspond.csv', index = False)
